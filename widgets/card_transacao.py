@@ -15,4 +15,6 @@ class TransacaoCard(ft.Card):
                 ], alignment="spaceBetween")
             ]),
             padding=15,
+            
         )
+        self.color = color=ft.Colors.GREY_900

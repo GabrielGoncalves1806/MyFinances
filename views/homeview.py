@@ -1,6 +1,8 @@
 import flet as ft
 from configs import PAGE_CONFIGS
-from widgets import card_transacao, card_resumo
+from widgets import card_transacao, card_resumo, popup_add_transacao
+from models import database_control
+from datetime import datetime
 
 class HomeView():
     def __init__(self,page:ft.Page):
@@ -10,16 +12,25 @@ class HomeView():
         self.page.theme_mode = PAGE_CONFIGS["theme"]    
 
         
-        self.meta_de_gasto = 100
-        self.total_saidas = 75
-        self.total_entradas = 10
+        self.meta_de_gasto = 500
+        self.total_saidas = 0
+        self.total_entradas = 0
         self.saldo = self.total_entradas - self.total_saidas
         
+        self.popup = popup_add_transacao.TransacaoPopup(self.adicionar_transacao)
+        self.page.overlay.append(self.popup)
         self.resumo = card_resumo.ResumoCard(self.saldo,self.meta_de_gasto,self.total_entradas,self.total_saidas)
-        self.txt = ft.Text(value=100)
+        self.historico = ft.Column(scroll=True,height=300)
         
+        self.txt = ft.Text(value=100)
+
         self.page.views.append(self.render_homeview())
         self.page.update()
+        
+    def adicionar_transacao(self,dados):
+        data = datetime.now()
+        data = data.strftime("%d/%m/%Y")
+        database_control.adicionar_transacao(dados["descricao",dados["valor",dados["tipo"].lower(),data]])
         
     def alterar_meta(self, e):
         # Atualiza a meta de gasto
@@ -41,9 +52,28 @@ class HomeView():
                 ft.Column(
                     [
                         self.resumo,
-                        self.txt,
-                        ft.Button(text="add", on_click=self.alterar_meta)
                     ]
-                )
-            ]
+                ),
+                # Body content
+                ft.Card(
+                    content=ft.Container(
+                        content=ft.Column(
+                            [
+                                ft.Row([ft.Text("Histórico de transações",size=18)],alignment=ft.alignment.center),
+                                self.historico
+                            ],
+                            spacing=10
+                        ),padding=10
+                    ),
+                    
+                ),
+                
+                
+            ],
+            appbar=ft.AppBar(
+                title=ft.Text("My Finance app"),
+                center_title=True,
+                automatically_imply_leading=False
+            ),
+            floating_action_button=ft.FloatingActionButton(icon=ft.Icons.ADD, on_click=self.popup.abrir)
         )

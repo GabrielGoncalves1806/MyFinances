@@ -6,9 +6,11 @@ class ResumoCard(ft.Card):
 
         self.saldo_text = ft.Text(f"Saldo: R$ {saldo:.2f}", size=18, weight="bold")
         self.meta_text = ft.Text(f"Meta de Gastos: R$ {meta_gasto:.2f}", size=16, color="grey")
-        self.progress_bar = ft.ProgressBar(value=saidas / meta_gasto if meta_gasto > 0 else 0, height=5, 
-                                            border_radius=25, 
-                                            color=ft.Colors.GREEN if saidas / meta_gasto < 0.75 else ft.Colors.RED)
+        self.progress_bar = ft.ProgressBar(
+            value=saidas / meta_gasto if meta_gasto > 0 else 0, 
+            height=5, 
+            border_radius=25, 
+            color=ft.Colors.GREEN if saidas / meta_gasto < 0.75 else ft.Colors.RED)
         self.entradas_text = ft.Text(f"Entradas: R$ {entradas:.2f}", size=16, color="green")
         self.saidas_text = ft.Text(f"Saídas: R$ {saidas:.2f}", size=16, color="red")
 
