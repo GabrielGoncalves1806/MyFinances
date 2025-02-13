@@ -17,7 +17,7 @@ class ResumoCard(ft.Card):
         # Criar os componentes do Card
         self.content = ft.Container(
             content=ft.Column([
-                ft.Row([self.saldo_text, ft.Icon(ft.Icons.VISIBILITY)], alignment="spaceBetween"),
+                ft.Row([self.saldo_text], alignment="spaceBetween"),
                 self.meta_text,
                 self.progress_bar,
                 ft.Row([self.entradas_text, self.saidas_text], alignment="spaceBetween")

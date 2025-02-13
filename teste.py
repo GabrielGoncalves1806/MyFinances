@@ -9,7 +9,7 @@ def main(page:ft.Page):
         
     page.add(
         ft.Text(saldo),
-        ft.Button('add', on_click=add)
+        ft.Button("add", on_click=add)
     )
 
 ft.app(main)

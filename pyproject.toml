@@ -1,0 +1,5 @@
+[tool.flet]
+
+name = "MyFinances"
+product_name = "MyFinances"
+description = "Um app de finanças pessoais"
