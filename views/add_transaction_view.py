@@ -1,23 +1,23 @@
 import flet as ft
-from forms import add_transacao_form
+from forms import add_transaction_form
 from controls import route_control
 
 class AddTransacaoView():
     def __init__(self, page:ft.Page):
         self.page = page
         
-        self.add_transacao_form = add_transacao_form.TransactionForm(self.page)
+        self.add_transaction_form = add_transaction_form.TransactionForm(self.page)
         
-        self.page.views.append(self.render_add_transacao_view())
+        self.page.views.append(self.render_add_transaction_view())
         self.page.update()
         
-    def render_add_transacao_view(self):
+    def render_add_transaction_view(self):
         return ft.View(
             route="/add",
             controls=[
                 ft.Column(
                     [
-                        self.add_transacao_form.get_controls()
+                        self.add_transaction_form.get_controls()
                     ]
                 )   
             ],

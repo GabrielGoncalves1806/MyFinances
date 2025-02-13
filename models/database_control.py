@@ -5,32 +5,32 @@ def database_connection():
     cursor = database.cursor()
     return database, cursor
 
-def get_transacoes():
+def get_transaction():
     database, cursor = database_connection()
     cursor.execute("SELECT * FROM transacoes")
     data = cursor.fetchall()
-    transacoes = []
+    transaction = []
     for itens in data:
-        transacoes.append(
+        transaction.append(
             {
-                "descricao":itens[1],
-                "valor":itens[2],
-                "tipo":itens[3],
-                "data":itens[4]
+                "description":itens[1],
+                "value":itens[2],
+                "type":itens[3],
+                "date":itens[4]
             }
         )
-    return transacoes
+    return transaction
     
-def add_transacao(descricao,valor,tipo,data):
+def add_transaction(description,value,type,date):
     database, cursor = database_connection()
     try:
-        cursor.execute("INSERT INTO transacoes (descricao, valor, tipo, data) VALUES (?,?,?,?)",(descricao,valor,tipo,data))
+        cursor.execute("INSERT INTO transacoes (descricao, valor, tipo, data) VALUES (?,?,?,?)",(description,value,type,date))
         database.commit()
         return True
     except Exception as e:
         print(e)
     
-get_transacoes()
+get_transaction()
     
 
     

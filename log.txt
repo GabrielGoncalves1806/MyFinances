@@ -1,0 +1,62 @@
+[23:25:53] Flutter 3.27.3[23:25:53] Flutter 3.27.3Traceback (most recent call last):
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\flet_cli\commands\build.py", line 555, in handle
+    self.initialize_build()
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\flet_cli\commands\build.py", line 622, in initialize_build
+    self.install_flutter()
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\flet_cli\commands\build.py", line 713, in install_flutter
+    console.log(
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\console.py", line 1946, in log
+    with self:
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\console.py", line 864, in __exit__
+    self._exit_buffer()
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\console.py", line 822, in _exit_buffer
+    self._check_buffer()
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\console.py", line 2019, in _check_buffer
+    self._write_buffer()
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\console.py", line 2055, in _write_buffer
+    legacy_windows_render(buffer, LegacyWindowsTerm(self.file))
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\_windows_renderer.py", line 17, in legacy_windows_render
+    term.write_styled(text, style)
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\_win32_console.py", line 441, in write_styled
+    self.write_text(text)
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\_win32_console.py", line 402, in write_text
+    self.write(text)
+  File "C:\Users\jodibe\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 11: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Scripts\flet.exe\__main__.py", line 7, in <module>
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\flet\cli.py", line 11, in main
+    flet_cli.cli.main()
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\flet_cli\cli.py", line 89, in main
+    args.handler(args)
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\flet_cli\commands\build.py", line 554, in handle
+    with Live(Group(self.status, self.progress), console=console) as self.live:
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\live.py", line 175, in __exit__
+    self.stop()
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\live.py", line 147, in stop
+    with self.console:
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\console.py", line 864, in __exit__
+    self._exit_buffer()
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\console.py", line 822, in _exit_buffer
+    self._check_buffer()
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\console.py", line 2019, in _check_buffer
+    self._write_buffer()
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\console.py", line 2055, in _write_buffer
+    legacy_windows_render(buffer, LegacyWindowsTerm(self.file))
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\_windows_renderer.py", line 17, in legacy_windows_render
+    term.write_styled(text, style)
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\_win32_console.py", line 441, in write_styled
+    self.write_text(text)
+  File "C:\Users\jodibe\Documents\Projetos\MyFinances\venv\Lib\site-packages\rich\_win32_console.py", line 402, in write_text
+    self.write(text)
+  File "C:\Users\jodibe\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 11: character maps to <undefined>

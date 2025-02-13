@@ -1,14 +1,14 @@
 import flet as ft
 
 class TransacaoCard(ft.Card):
-    def __init__(self, descricao, valor, data, tipo):
+    def __init__(self, description, value, data, type):
         super().__init__()
-        icone = ft.Icon(ft.Icons.ARROW_FORWARD, color="red") if tipo == "saida" else ft.Icon(ft.Icons.ARROW_BACK, color="green")
+        icone = ft.Icon(ft.Icons.ARROW_FORWARD, color="red") if type == "saida" else ft.Icon(ft.Icons.ARROW_BACK, color="green")
         
         self.content = ft.Container(
             content=ft.Column([
-                ft.Text(descricao, size=18, weight="bold"),
-                ft.Text(f"R$ {valor:.2f}", size=16, color="grey"),
+                ft.Text(description, size=18, weight="bold"),
+                ft.Text(f"R$ {value:.2f}", size=16, color="grey"),
                 ft.Row([
                     icone,
                     ft.Text(data, size=14, color="grey")

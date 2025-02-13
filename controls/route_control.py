@@ -1,6 +1,6 @@
 import views
-from views import add_transacao_view, homeview
-import views.add_transacao_view
+from views import add_transaction_view, homeview
+import views.add_transaction_view
 import views.homeview
 
 # Função de navegação entre rotas/janelas
@@ -15,7 +15,7 @@ def go_to(page, route, data=None):
             return
             
     if route == "/add":
-        views.add_transacao_view.AddTransacaoView(page)
+        views.add_transaction_view.AddTransacaoView(page)
         
     elif route == "/homeview":
         views.homeview.HomeView(page)

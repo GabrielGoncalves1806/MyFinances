@@ -1,8 +1,7 @@
 import flet as ft
 from configs import PAGE_CONFIGS
-from widgets import card_transacao, card_resumo, popup_add_transacao
+from widgets import card_transaction, card_resumo
 from models import database_control
-from datetime import datetime
 from controls import route_control
 
 class HomeView():
@@ -30,20 +29,21 @@ class HomeView():
     
     def render_movimentacoes(self):
         self.historico.controls.clear()
-        data = database_control.get_transacoes()
+        data = database_control.get_transaction()
         for item in data:
-            self.historico.controls.append(card_transacao.TransacaoCard(descricao=item["descricao"],valor=item["valor"],tipo=item["tipo"],data=item["data"]))
+            self.historico.controls.append(card_transaction.TransacaoCard(description=item["description"],value=item["value"],type=item["type"],data=item["date"]))
+        self.historico.controls.reverse()
         
     def atualizar_resumo(self):
         entradas = []
         saidas = []
-        data = database_control.get_transacoes()
+        data = database_control.get_transaction()
         for item in data:
-            if item["tipo"] == "entrada":
-                entradas.append(item["valor"])
+            if item["type"] == "entrada":
+                entradas.append(item["value"])
             else:
-                saidas.append(item["valor"])
-        # Atualiza o ResumoCard com os novos valores
+                saidas.append(item["value"])
+        # Atualiza o ResumoCard com os novos valuees
         self.saldo = sum(entradas) - sum(saidas)
         self.total_entradas = sum(entradas)
         self.total_saidas = sum(saidas)
@@ -51,8 +51,7 @@ class HomeView():
 
         # Chama update para renderizar as alterações
         self.page.update()  # Apenas atualiza a página
-        
-        
+    
     def render_homeview(self):
         return ft.View(
             route="/home",

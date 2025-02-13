@@ -9,16 +9,16 @@ class TransactionForm():
         self.msg_snack = ft.SnackBar(ft.Text("Transação adicionada com sucesso!"))
 
         # Campos do formulário
-        self.descricao = ft.TextField(label="Descrição", max_length=50)
-        self.valor = ft.TextField(label="Valor", keyboard_type=ft.KeyboardType.NUMBER)
-        self.tipo_transacao = ft.Dropdown(
+        self.description = ft.TextField(label="Descrição", max_length=50)
+        self.value = ft.TextField(label="Valor", keyboard_type=ft.KeyboardType.NUMBER)
+        self.type_transaction = ft.Dropdown(
             label="Tipo",
             options=[
                 ft.dropdown.Option("Entrada"),
                 ft.dropdown.Option("Saída"),
             ]
         )
-        self.data = datetime.now().strftime("%d/%m/%Y")
+        self.date = datetime.now().strftime("%d/%m/%Y")
 
         self.botao_salvar = ft.ElevatedButton(
             text="Salvar",
@@ -28,21 +28,21 @@ class TransactionForm():
     def save_values(self):
         dados = self.get_values()
 
-        if not dados["descricao"] or not dados["valor"] or not dados["tipo"]:
+        if not dados["description"] or not dados["value"] or not dados["type"]:
             self.msg_snack = ft.SnackBar(content=ft.Text("Preencha todos os campos!"))
         else:
-            dados_salvos = database_control.add_transacao(
-                dados["descricao"],
-                float(dados["valor"]),
-                unidecode(dados["tipo"].lower()),
-                self.data
+            dados_salvos = database_control.add_transaction(
+                dados["description"],
+                float(dados["value"]),
+                unidecode(dados["type"].lower()),
+                self.date
             )
             
             if dados_salvos:
                 self.msg_snack = ft.SnackBar(content=ft.Text("Transação adicionada com sucesso!"))
-                self.descricao.value = ""
-                self.valor.value = ""
-                self.tipo_transacao.value = None
+                self.description.value = ""
+                self.value.value = ""
+                self.type_transaction.value = None
             else:
                 self.msg_snack = ft.SnackBar(content=ft.Text("Erro ao adicionar a transação!"))
 
@@ -52,19 +52,19 @@ class TransactionForm():
 
     def get_values(self):
         return {
-            "descricao": self.descricao.value,
-            "valor": self.valor.value,
-            "tipo": self.tipo_transacao.value,
-            "data": self.data
+            "description": self.description.value,
+            "value": self.value.value,
+            "type": self.type_transaction.value,
+            "date": self.date
         }
 
     # Retorna os controles para a tela
     def get_controls(self):
         return ft.Column(
             [
-                self.descricao,
-                self.valor,
-                self.tipo_transacao,
+                self.description,
+                self.value,
+                self.type_transaction,
                 self.botao_salvar,
             ],
             spacing=10
