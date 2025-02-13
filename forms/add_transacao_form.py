@@ -1,6 +1,7 @@
 import flet as ft
 from datetime import datetime
 from models import database_control
+from unidecode import unidecode
 
 class TransactionForm():
     def __init__(self, page: ft.Page):
@@ -33,7 +34,8 @@ class TransactionForm():
             dados_salvos = database_control.add_transacao(
                 dados["descricao"],
                 float(dados["valor"]),
-                dados["tipo"]
+                unidecode(dados["tipo"].lower()),
+                self.data
             )
             
             if dados_salvos:

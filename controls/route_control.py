@@ -15,7 +15,7 @@ def go_to(page, route, data=None):
             return
             
     if route == "/add":
-        views.add_transacao_view(page)
+        views.add_transacao_view.AddTransacaoView(page)
         
     elif route == "/homeview":
         views.homeview.HomeView(page)
