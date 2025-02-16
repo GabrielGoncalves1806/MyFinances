@@ -1,5 +1,5 @@
 import flet as ft
-from forms import add_transaction_form
+from forms import add_transaction_form, add_category_form
 from controls import route_control
 
 class AddTransacaoView():
@@ -7,6 +7,7 @@ class AddTransacaoView():
         self.page = page
         
         self.add_transaction_form = add_transaction_form.TransactionForm(self.page)
+        self.add_category_form = add_category_form.CategoryForm(self.page)
         
         self.page.views.append(self.render_add_transaction_view())
         self.page.update()
@@ -17,7 +18,8 @@ class AddTransacaoView():
             controls=[
                 ft.Column(
                     [
-                        self.add_transaction_form.get_controls()
+                        self.add_transaction_form.get_controls(),
+                        self.add_category_form.get_controls()
                     ]
                 )   
             ],

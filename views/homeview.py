@@ -1,6 +1,6 @@
 import flet as ft
 from configs import PAGE_CONFIGS
-from widgets import card_transaction, card_resumo
+from widgets import card_resume, card_transaction, drawer_widget
 from models import database_control
 from controls import route_control
 
@@ -19,7 +19,8 @@ class HomeView():
         
         self.atualizar_resumo()
         
-        self.resumo = card_resumo.ResumoCard(self.saldo,self.meta_de_gasto,self.total_entradas,self.total_saidas)
+        self.nav_drawer = drawer_widget.DrawerWidget()
+        self.resumo = card_resume.ResumoCard(self.saldo,self.meta_de_gasto,self.total_entradas,self.total_saidas)
         self.historico = ft.Column(scroll=True,height=300)
         
         self.page.views.append(self.render_homeview())
@@ -39,11 +40,11 @@ class HomeView():
         saidas = []
         data = database_control.get_transaction()
         for item in data:
-            if item["type"] == "entrada":
+            if item["type"] == "receita":
                 entradas.append(item["value"])
             else:
                 saidas.append(item["value"])
-        # Atualiza o ResumoCard com os novos valuees
+        # Atualiza o ResumoCard com os novos values
         self.saldo = sum(entradas) - sum(saidas)
         self.total_entradas = sum(entradas)
         self.total_saidas = sum(saidas)
@@ -81,7 +82,8 @@ class HomeView():
             appbar=ft.AppBar(
                 title=ft.Text("My Finance app"),
                 center_title=True,
-                automatically_imply_leading=False
+                leading=ft.IconButton(icon=ft.Icons.MENU,on_click= lambda e: self.page.open(self.nav_drawer))
             ),
-            floating_action_button=ft.FloatingActionButton(icon=ft.Icons.ADD, on_click=lambda e: route_control.go_to(self.page,"/add"))
+            floating_action_button=ft.FloatingActionButton(icon=ft.Icons.ADD, on_click=lambda e: route_control.go_to(self.page,"/add")),
+            drawer=self.nav_drawer
         )

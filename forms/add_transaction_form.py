@@ -14,8 +14,8 @@ class TransactionForm():
         self.type_transaction = ft.Dropdown(
             label="Tipo",
             options=[
-                ft.dropdown.Option("Entrada"),
-                ft.dropdown.Option("Saída"),
+                ft.dropdown.Option(text="Receita",content=ft.Row([ft.Icon(ft.Icons.ARROW_BACK, color=ft.Colors.GREEN,),ft.Text("Receita")])),
+                ft.dropdown.Option(text="Despesa",content=ft.Row([ft.Icon(ft.Icons.ARROW_FORWARD, color=ft.Colors.RED,),ft.Text("Despesa")])),
             ]
         )
         self.date = datetime.now().strftime("%d/%m/%Y")
@@ -60,14 +60,18 @@ class TransactionForm():
 
     # Retorna os controles para a tela
     def get_controls(self):
-        return ft.Column(
-            [
-                self.description,
-                self.value,
-                self.type_transaction,
-                self.botao_salvar,
-            ],
-            spacing=10
+        return ft.Card(
+            content=ft.Container(
+                content=ft.Column(
+                    [
+                        ft.Text("Adicionar Receitas/Despesas",size=18),
+                        self.description,
+                        self.value,
+                        self.type_transaction,
+                        self.botao_salvar,
+                    ],
+                    spacing=10
+                ),
+                padding=15
+            ) 
         )
-
-        
