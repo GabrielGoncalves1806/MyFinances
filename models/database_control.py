@@ -13,27 +13,74 @@ def get_transaction():
     for itens in data:
         transaction.append(
             {
+                "id":itens[0],
                 "description":itens[1],
                 "value":itens[2],
                 "type":itens[3],
-                "date":itens[4]
+                "date":itens[4],
+                "category":itens[5]
             }
         )
     return transaction
-    
-def add_transaction(description,value,type,date):
+
+def get_category(id=None,name=None):
+    database, cursor = database_connection()
+    if id:
+        cursor.execute("SELECT * FROM categorias WHERE id = ?",(id,))
+        category_data = cursor.fetchone()
+        return {
+            "id":category_data[0],
+            "nome":category_data[1],
+            "cor":category_data[2]
+        }
+    elif name:
+        cursor.execute("SELECT * FROM categorias WHERE nome = ?",(name.lower(),))
+        category_id = cursor.fetchone()
+        return category_id[0]
+    else:
+        cursor.execute("SELECT * FROM categorias")
+        data = cursor.fetchall()
+        category = []
+        for itens in data:
+            category.append(
+                {
+                    "nome":itens[1],
+                    "cor":itens[2],
+                }
+            )
+        return category
+
+def add_category(name,color):
     database, cursor = database_connection()
     try:
-        cursor.execute("INSERT INTO transacoes (descricao, valor, tipo, data) VALUES (?,?,?,?)",(description,value,type,date))
+        cursor.execute("INSERT INTO categorias (nome, cor) VALUES (?,?)",(name,color))
         database.commit()
         return True
     except Exception as e:
         print(e)
     
-get_transaction()
+def add_transaction(description,value,type,date,category_id):
+    database, cursor = database_connection()
+    try:
+        cursor.execute("INSERT INTO transacoes (descricao, valor, tipo, data, id_categoria) VALUES (?,?,?,?,?)",(description,value,type,date,category_id))
+        database.commit()
+        return True
+    except Exception as e:
+        print(e)
     
 
-    
+
+
+# database, cursor = database_connection()
+# cursor.execute("""
+#                CREATE TABLE IF NOT EXISTS categorias (
+#                    id INTEGER PRIMARY KEY,
+#                    nome TEXT,
+#                    cor TEXT
+#                )
+#                """
+# )
+# database.commit()
     
 # database, cursor = database_connection()
 # cursor.execute("""

@@ -9,9 +9,8 @@ class HomeView():
         self.page = page
         self.page.window.width = PAGE_CONFIGS["width"]
         self.page.window.height = PAGE_CONFIGS["height"]
-        self.page.theme_mode = PAGE_CONFIGS["theme"]    
+        self.page.theme_mode = PAGE_CONFIGS["theme"]   
 
-        
         self.meta_de_gasto = 500
         self.total_saidas = 0
         self.total_entradas = 0
@@ -28,11 +27,21 @@ class HomeView():
         
         self.page.update()
     
+    
+    
     def render_movimentacoes(self):
         self.historico.controls.clear()
         data = database_control.get_transaction()
         for item in data:
-            self.historico.controls.append(card_transaction.TransacaoCard(description=item["description"],value=item["value"],type=item["type"],data=item["date"]))
+            self.historico.controls.append(
+                card_transaction.TransacaoCard(
+                    description=item["description"],
+                    value=item["value"],
+                    type=item["type"],
+                    data=item["date"],
+                    category_id=item["category"]
+                    )
+            )
         self.historico.controls.reverse()
         
     def atualizar_resumo(self):
@@ -56,6 +65,7 @@ class HomeView():
     def render_homeview(self):
         return ft.View(
             route="/home",
+            scroll=True,
             controls=[
                 # Header
                 ft.Column(

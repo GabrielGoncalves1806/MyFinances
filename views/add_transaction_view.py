@@ -15,6 +15,7 @@ class AddTransacaoView():
     def render_add_transaction_view(self):
         return ft.View(
             route="/add",
+            scroll=True,
             controls=[
                 ft.Column(
                     [
