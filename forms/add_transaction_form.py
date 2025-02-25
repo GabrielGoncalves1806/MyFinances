@@ -52,9 +52,11 @@ class TransactionForm():
 
     def save_values(self):
         dados = self.get_values()
-
+        profile_data = database_control.get_profile_data()
+        # Checa se os campos foram preenchidos
         if not dados["description"] or not dados["value"] or not dados["type"]:
             self.msg_snack.content = ft.Text("Preencha todos os campos!")
+        # Se todos os campos foram preenchidos tenta salvar os dados
         else:
             dados_salvos = database_control.add_transaction(
                 description=dados["description"],
@@ -64,6 +66,12 @@ class TransactionForm():
                 category_id=database_control.get_category(name=self.category.value)
             )
             
+            if dados["type"] == "receita":
+                database_control.update_profile_value(total_receita=profile_data["total_receita"] + float(dados["value"]))
+            elif dados["type"] == "despesa":
+                database_control.update_profile_value(total_gastos=profile_data["total_gastos"] + float(dados["value"]))
+                
+            # Se a transação foi salva com sucesso, mostra uma mensagem, e zera os campos
             if dados_salvos:
                 self.msg_snack = ft.SnackBar(content=ft.Text("Transação adicionada com sucesso!"))
                 self.description.value = ""
@@ -81,7 +89,7 @@ class TransactionForm():
         return {
             "description": self.description.value,
             "value": self.value.value,
-            "type": self.type_transaction.value,
+            "type": self.type_transaction.value.lower(),
             "date": self.date
         }
 

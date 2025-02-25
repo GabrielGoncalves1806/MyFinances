@@ -67,6 +67,19 @@ def add_transaction(description,value,type,date,category_id):
         return True
     except Exception as e:
         print(e)
+        
+def update_profile_value(meta_gastos=None,total_gastos=None,total_receita=None):
+    database, cursor = database_connection()
+    if meta_gastos:
+        cursor.execute("UPDATE profile SET meta_gastos = ?",(meta_gastos,))
+        database.commit()
+    elif total_gastos:
+        cursor.execute("UPDATE profile SET total_gastos = ?",(total_gastos,))
+        database.commit()
+    elif total_receita:
+        cursor.execute("UPDATE profile SET total_receita = ?",(total_receita,))
+        database.commit()
+
 def get_profile_data():
     database, cursor = database_connection()
     cursor.execute("SELECT * FROM profile")

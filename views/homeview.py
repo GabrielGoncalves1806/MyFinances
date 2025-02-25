@@ -21,6 +21,8 @@ class HomeView():
         
         # Widgets
         self.nav_drawer = drawer_widget.DrawerWidget(self.page)
+        self.nav_drawer.selected_index = 0
+        
         self.resumo = card_resume.ResumoCard(self.saldo,self.meta_de_gasto,self.total_receita,self.total_despesas)
         self.historico = ft.Column(scroll=True,expand=True)
         
@@ -47,18 +49,10 @@ class HomeView():
         self.historico.controls.reverse()
         
     def atualizar_resumo(self):
-        receita = []
-        despesas = []
-        data = database_control.get_transaction()
-        for item in data:
-            if item["type"] == "receita":
-                receita.append(item["value"])
-            else:
-                despesas.append(item["value"])
         # Atualiza o ResumoCard com os novos values
-        self.saldo = sum(receita) - sum(despesas)
-        self.total_receita = sum(receita)
-        self.total_despesas = sum(despesas)
+        self.saldo = self.profile_data["total_receita"] - self.profile_data["total_gastos"]
+        self.total_receita = self.profile_data["total_receita"]
+        self.total_despesas = self.profile_data["total_gastos"]
 
         # Chama update para renderizar as alterações
         self.page.update()

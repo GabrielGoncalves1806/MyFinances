@@ -7,7 +7,7 @@ class DrawerWidget(ft.NavigationDrawer):
         
         self.page = page
         
-        self.selected_index = -1
+        self.selected_index = 0
         self.on_change = self.check_destination
         self.controls = [
                 ft.Container(
@@ -28,23 +28,21 @@ class DrawerWidget(ft.NavigationDrawer):
                 ),
                 ft.Divider(thickness=2),
                 ft.NavigationDrawerDestination(
+                    label="Home",
+                    icon=ft.Icons.HOUSE_OUTLINED,
+                    selected_icon=ft.Icon(ft.Icons.HOUSE),
+                ),
+                ft.NavigationDrawerDestination(
                     label="Relatórios",
                     icon=ft.Icons.DOOR_BACK_DOOR_OUTLINED,
                     selected_icon=ft.Icon(ft.Icons.DOOR_BACK_DOOR),
                 ),
-                ft.NavigationDrawerDestination(
-                    label="Parametros",
-                    icon=ft.Icons.DOOR_BACK_DOOR_OUTLINED,
-                    selected_icon=ft.Icon(ft.Icons.DOOR_BACK_DOOR),
-                ),
-                ft.NavigationDrawerDestination(
-                    label="Configurações",
-                    icon=ft.Icons.SETTINGS_OUTLINED,
-                    selected_icon=ft.Icon(ft.Icons.SETTINGS_ROUNDED),
-                ),
             ]      
     def check_destination(self,e):
         if e.control.selected_index == 0:
+            route_control.go_to(self.page,"/homeview")
+            
+        elif e.control.selected_index == 1:
             route_control.go_to(self.page,"/reports")
         
         # self.controls=[

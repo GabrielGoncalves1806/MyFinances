@@ -29,4 +29,5 @@ class AddTransacaoView():
                 center_title=True,
                 leading=ft.IconButton(icon=ft.Icons.ARROW_BACK,on_click=lambda e: route_control.go_to(page=self.page,route="/homeview"))
             )
+            
         )
