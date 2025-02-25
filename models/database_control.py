@@ -67,10 +67,35 @@ def add_transaction(description,value,type,date,category_id):
         return True
     except Exception as e:
         print(e)
+def get_profile_data():
+    database, cursor = database_connection()
+    cursor.execute("SELECT * FROM profile")
+    data = cursor.fetchone()
+    return {
+        "id":data[0],
+        "name":data[1],
+        "meta_gastos":data[2],
+        "total_gastos":data[3],
+        "total_receita":data[4]
+    }
     
+    
+    
+# Tabela do perfil  
+# database, cursor = database_connection()
+# cursor.execute("""
+#                CREATE TABLE IF NOT EXISTS profile (
+#                    id INTEGER PRIMARY KEY,
+#                    name TEXT,
+#                    meta_gastos FLOAT,
+#                    total_gastos FLOAT,
+#	                 total_receita FLOAT
+#                )
+#                """
+# )
+# database.commit()
 
-
-
+# Tabela das categorias
 # database, cursor = database_connection()
 # cursor.execute("""
 #                CREATE TABLE IF NOT EXISTS categorias (
@@ -81,7 +106,8 @@ def add_transaction(description,value,type,date,category_id):
 #                """
 # )
 # database.commit()
-    
+
+# Tabela das transações
 # database, cursor = database_connection()
 # cursor.execute("""
 #                CREATE TABLE IF NOT EXISTS transacoes (

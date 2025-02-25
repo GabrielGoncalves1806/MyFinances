@@ -1,11 +1,8 @@
-import views
-from views import add_transaction_view, homeview
-import views.add_transaction_view
 import views.homeview
+import views.add_transaction_view
+import views.reports_view
 
 # Função de navegação entre rotas/janelas
-
-
 def go_to(page, route, data=None):
     print(route)
     for view in page.views:
@@ -19,6 +16,9 @@ def go_to(page, route, data=None):
         
     elif route == "/homeview":
         views.homeview.HomeView(page)
+    
+    elif route == "/reports":
+        views.reports_view.ReportsView(page)
         
 # Função que volta até a home
 def go_home(page):

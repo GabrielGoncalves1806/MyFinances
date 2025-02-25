@@ -29,7 +29,7 @@ class CategoryForm():
         if not data["name"] or not data["color"]:
             self.msg_snack.content = ft.Text("Preencha todos os campos!")
         else:
-            data_saved = database_control.add_category(self.name.value,self.colors_dropdown.value)
+            data_saved = database_control.add_category(self.name.value.lower(),self.colors_dropdown.value)
             
         if data_saved:
             self.name.value = ""

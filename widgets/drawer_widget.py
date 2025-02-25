@@ -1,9 +1,14 @@
 import flet as ft
+from controls import route_control
 
 class DrawerWidget(ft.NavigationDrawer):
-    def __init__(self):
+    def __init__(self,page:ft.Page):
         super().__init__()
         
+        self.page = page
+        
+        self.selected_index = -1
+        self.on_change = self.check_destination
         self.controls = [
                 ft.Container(
                     content=ft.Column(
@@ -38,7 +43,9 @@ class DrawerWidget(ft.NavigationDrawer):
                     selected_icon=ft.Icon(ft.Icons.SETTINGS_ROUNDED),
                 ),
             ]      
-        
+    def check_destination(self,e):
+        if e.control.selected_index == 0:
+            route_control.go_to(self.page,"/reports")
         
         # self.controls=[
         #     ft.Container(height=12),

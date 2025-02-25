@@ -11,24 +11,26 @@ class HomeView():
         self.page.window.height = PAGE_CONFIGS["height"]
         self.page.theme_mode = PAGE_CONFIGS["theme"]   
 
-        self.meta_de_gasto = 500
-        self.total_saidas = 0
-        self.total_entradas = 0
-        self.saldo = self.total_entradas - self.total_saidas
+        self.profile_data = database_control.get_profile_data()
+        self.meta_de_gasto = self.profile_data["meta_gastos"]
+        self.total_despesas = self.profile_data["total_gastos"]
+        self.total_receita = self.profile_data["total_receita"]
+        self.saldo = self.total_receita - self.total_despesas
         
         self.atualizar_resumo()
         
-        self.nav_drawer = drawer_widget.DrawerWidget()
-        self.resumo = card_resume.ResumoCard(self.saldo,self.meta_de_gasto,self.total_entradas,self.total_saidas)
-        self.historico = ft.Column(scroll=True,height=300)
+        # Widgets
+        self.nav_drawer = drawer_widget.DrawerWidget(self.page)
+        self.resumo = card_resume.ResumoCard(self.saldo,self.meta_de_gasto,self.total_receita,self.total_despesas)
+        self.historico = ft.Column(scroll=True,expand=True)
+        
+        self.page.on_route_change = lambda e: self.page.update()
         
         self.page.views.append(self.render_homeview())
         self.render_movimentacoes()
         
         self.page.update()
-    
-    
-    
+        
     def render_movimentacoes(self):
         self.historico.controls.clear()
         data = database_control.get_transaction()
@@ -40,27 +42,26 @@ class HomeView():
                     type=item["type"],
                     data=item["date"],
                     category_id=item["category"]
-                    )
+                )
             )
         self.historico.controls.reverse()
         
     def atualizar_resumo(self):
-        entradas = []
-        saidas = []
+        receita = []
+        despesas = []
         data = database_control.get_transaction()
         for item in data:
             if item["type"] == "receita":
-                entradas.append(item["value"])
+                receita.append(item["value"])
             else:
-                saidas.append(item["value"])
+                despesas.append(item["value"])
         # Atualiza o ResumoCard com os novos values
-        self.saldo = sum(entradas) - sum(saidas)
-        self.total_entradas = sum(entradas)
-        self.total_saidas = sum(saidas)
-        #self.resumo.atualizar(saldo=sum(entradas)-sum(saidas),meta_gasto=self.meta_de_gasto,entradas=sum(entradas),saidas=sum(saidas))
+        self.saldo = sum(receita) - sum(despesas)
+        self.total_receita = sum(receita)
+        self.total_despesas = sum(despesas)
 
         # Chama update para renderizar as alterações
-        self.page.update()  # Apenas atualiza a página
+        self.page.update()
     
     def render_homeview(self):
         return ft.View(
@@ -83,17 +84,15 @@ class HomeView():
                             ],
                             spacing=10
                         ),padding=10
-                    ),
-                    
+                    ), 
                 ),
-                
-                
             ],
             appbar=ft.AppBar(
-                title=ft.Text("My Finance app"),
+                title=ft.Text("MyFinance"),
                 center_title=True,
                 leading=ft.IconButton(icon=ft.Icons.MENU,on_click= lambda e: self.page.open(self.nav_drawer))
             ),
-            floating_action_button=ft.FloatingActionButton(icon=ft.Icons.ADD, on_click=lambda e: route_control.go_to(self.page,"/add")),
-            drawer=self.nav_drawer
+            floating_action_button=ft.FloatingActionButton(icon=ft.Icons.ADD,on_click=lambda e: route_control.go_to(self.page,"/add")),
+            drawer=self.nav_drawer,
+            
         )
