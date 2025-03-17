@@ -22,4 +22,4 @@ jobs:
           pip install -r requirements.txt || echo "Nenhum requirements.txt encontrado"
 
       - name: Executar script
-        run: python main.py
+        run: python teste.py
